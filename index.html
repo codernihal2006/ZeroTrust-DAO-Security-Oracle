@@ -438,3 +438,309 @@
     </script>
 </body>
 </html>
+
+<script>
+// Advanced Backend Integration
+const ADVANCED_API_BASE = 'http://localhost:3004/api';
+
+// Override existing functions to use advanced backend
+async function fetchAdvancedMetrics() {
+  try {
+    const response = await fetch(`${ADVANCED_API_BASE}/ultimate-metrics`);
+    const metrics = await response.json();
+    
+    // Update dashboard with real advanced metrics
+    updateDashboardWithAdvancedData(metrics);
+    
+  } catch (error) {
+    console.log('Advanced backend not available, using simulation');
+  }
+}
+
+function updateDashboardWithAdvancedData(metrics) {
+  // Update threat counter with real data
+  if (metrics.systemOverview) {
+    document.getElementById('threatCount').textContent = metrics.systemOverview.threatsPrevented || '0';
+    document.getElementById('txCount').textContent = metrics.systemOverview.totalAnalyses || '0';
+  }
+  
+  // Update AI metrics with real performance
+  if (metrics.aiAgents) {
+    const riskAccuracy = metrics.aiAgents.riskAnalyzer?.accuracy || '0%';
+    document.getElementById('aiConfidence').textContent = riskAccuracy;
+  }
+  
+  // Update autonomous guardian metrics
+  if (metrics.autonomousGuardian) {
+    const autonomyLevel = metrics.autonomousGuardian.autonomyLevel || '0%';
+    document.getElementById('processingRate').textContent = `Autonomy: ${autonomyLevel}`;
+  }
+  
+  // Add terminal log about advanced integration
+  addTerminalLog('🔗 Connected to Advanced Backend API');
+  addTerminalLog(`📊 Systems Active: ZK + AI + Autonomous + Crypto`);
+}
+
+// Simulate advanced threat analysis
+async function simulateAdvancedThreat() {
+  try {
+    const threatData = {
+      amount: Math.random() * 2000000 + 500000,
+      executionTime: Math.random() * 300 + 30,
+      contractInteractions: Math.floor(Math.random() * 10) + 1,
+      senderScore: Math.random() * 100,
+      gasPrice: Math.random() * 200 + 50
+    };
+    
+    const response = await fetch(`${ADVANCED_API_BASE}/ultimate-analysis`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(threatData)
+    });
+    
+    const analysis = await response.json();
+    
+    // Show advanced analysis results
+    if (analysis.isWorkingAdvanced) {
+      const action = analysis.ultimateDecision.action;
+      const score = analysis.ultimateDecision.ultimateScore;
+      
+      if (action === 'block' || action === 'alert') {
+        threatCount++;
+        document.getElementById('threatCount').textContent = threatCount;
+        
+        // Add advanced alert
+        const alertContainer = document.getElementById('alertContainer');
+        const alert = document.createElement('div');
+        alert.className = 'alert';
+        alert.innerHTML = `🚨 ADVANCED ALERT: ${action.toUpperCase()} - Threat Score: ${score}% 
+                          <br>Systems: ZK(${analysis.zkAnalyzer.riskScore}) + AI(${analysis.aiAgents.riskScore}) + Autonomous(${analysis.autonomousGuardian.threatScore})`;
+        alertContainer.appendChild(alert);
+        
+        if (alertContainer.children.length > 3) {
+          alertContainer.removeChild(alertContainer.firstChild);
+        }
+      }
+      
+      // Add terminal logs
+      addTerminalLog(`🔍 Advanced Analysis: ${action} (${score}% threat)`);
+      addTerminalLog(`🔐 ZK Proof: ${analysis.cryptoProof?.verified ? 'Verified' : 'Failed'}`);
+      addTerminalLog(`🤖 AI Consensus: ${analysis.aiAgents.riskScore}% risk`);
+      addTerminalLog(`🧠 Autonomous: ${analysis.autonomousGuardian.action}`);
+    }
+    
+  } catch (error) {
+    console.log('Using simulation mode - advanced backend not connected');
+  }
+}
+
+// Start advanced integration
+setTimeout(() => {
+  // Fetch real metrics every 5 seconds
+  fetchAdvancedMetrics();
+  setInterval(fetchAdvancedMetrics, 5000);
+  
+  // Simulate advanced threats every 10 seconds
+  setInterval(simulateAdvancedThreat, 10000);
+  
+  addTerminalLog('🚀 Advanced Backend Integration Initialized');
+  addTerminalLog('🔗 Connecting to ZeroTrust Advanced Oracle...');
+}, 2000);
+
+console.log('🔗 Advanced Frontend-Backend Integration Loaded');
+console.log('🌐 Backend API: http://localhost:3004');
+</script>
+<script src="public-backend-integration.js"></script>
+
+<!-- Advanced Backend Integration Script -->
+<script>
+// Advanced Backend Client
+class ZeroTrustAdvancedAPI {
+    constructor() {
+        this.apiBase = 'http://localhost:3004/api';
+        this.connected = false;
+    }
+
+    async checkConnection() {
+        try {
+            const response = await fetch(`${this.apiBase}/health`);
+            this.connected = response.ok;
+            if (this.connected) {
+                this.logToTerminal('🔗 Advanced Backend Connected');
+                this.logToTerminal('🔐 Multi-System AI: ONLINE');
+                return true;
+            }
+        } catch (error) {
+            this.logToTerminal('⚠️ Backend offline - Demo mode');
+            return false;
+        }
+    }
+
+    async analyzeAdvancedThreat(threatData) {
+        if (!this.connected) return null;
+        
+        try {
+            const response = await fetch(`${this.apiBase}/ultimate-analysis`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(threatData)
+            });
+            
+            const result = await response.json();
+            this.displayAdvancedResults(result);
+            return result;
+        } catch (error) {
+            this.logToTerminal('❌ Analysis failed: ' + error.message);
+            return null;
+        }
+    }
+
+    async fetchRealMetrics() {
+        if (!this.connected) return null;
+        
+        try {
+            const response = await fetch(`${this.apiBase}/ultimate-metrics`);
+            const metrics = await response.json();
+            this.updateDashboardMetrics(metrics);
+            return metrics;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    displayAdvancedResults(analysis) {
+        if (!analysis.isWorkingAdvanced) return;
+        
+        const decision = analysis.ultimateDecision;
+        const score = decision.ultimateScore;
+        const action = decision.action;
+        
+        // Log detailed analysis
+        this.logToTerminal(`🎯 ANALYSIS: ${action.toUpperCase()} (${score}%)`);
+        this.logToTerminal(`🔐 ZK System: ${analysis.zkAnalyzer.riskScore}%`);
+        this.logToTerminal(`🤖 AI Agents: ${analysis.aiAgents.riskScore}%`);
+        this.logToTerminal(`🧠 Guardian: ${analysis.autonomousGuardian.threatScore}%`);
+        
+        // Show alert for high threats
+        if (action === 'block' || action === 'alert') {
+            this.showAdvancedAlert(decision, analysis);
+            this.incrementThreatCounter();
+        }
+    }
+
+    showAdvancedAlert(decision, analysis) {
+        const alertContainer = document.getElementById('alertContainer');
+        if (!alertContainer) return;
+        
+        const alert = document.createElement('div');
+        alert.className = 'alert';
+        alert.style.cssText = 'background: linear-gradient(45deg, #ff4444, #cc0000); margin: 5px 0; padding: 10px; border-radius: 8px;';
+        alert.innerHTML = `
+            🚨 <strong>ADVANCED ${decision.action.toUpperCase()}</strong>: ${decision.ultimateScore}% Threat<br>
+            🔍 Multi-System Consensus: ZK(${analysis.zkAnalyzer.riskScore}) + AI(${analysis.aiAgents.riskScore}) + Guard(${analysis.autonomousGuardian.threatScore})<br>
+            🎯 Confidence: ${Math.round(decision.confidence * 100)}% | Systems: 4 Active
+        `;
+        
+        alertContainer.appendChild(alert);
+        
+        // Keep only latest 3 alerts
+        while (alertContainer.children.length > 3) {
+            alertContainer.removeChild(alertContainer.firstChild);
+        }
+    }
+
+    updateDashboardMetrics(metrics) {
+        if (metrics.systemOverview) {
+            const threatCount = document.getElementById('threatCount');
+            const txCount = document.getElementById('txCount');
+            
+            if (threatCount) threatCount.textContent = metrics.systemOverview.threatsPrevented || '0';
+            if (txCount) txCount.textContent = metrics.systemOverview.totalAnalyses || '0';
+        }
+        
+        if (metrics.autonomousGuardian) {
+            const autonomy = metrics.autonomousGuardian.autonomyLevel || '0%';
+            this.logToTerminal(`🧠 Autonomous Level: ${autonomy}`);
+        }
+    }
+
+    incrementThreatCounter() {
+        const counter = document.getElementById('threatCount');
+        if (counter) {
+            const current = parseInt(counter.textContent) || 0;
+            counter.textContent = current + 1;
+        }
+    }
+
+    logToTerminal(message) {
+        if (typeof addTerminalLog === 'function') {
+            addTerminalLog(message);
+        } else {
+            console.log(message);
+        }
+    }
+
+    generateRealisticThreat() {
+        const threatTypes = [
+            { // Flash loan attack simulation
+                amount: Math.random() * 3000000 + 1000000,
+                executionTime: Math.random() * 60 + 15,
+                contractInteractions: Math.floor(Math.random() * 10) + 5,
+                senderScore: Math.random() * 40 + 10,
+                gasPrice: Math.random() * 200 + 100
+            },
+            { // Normal transaction
+                amount: Math.random() * 100000 + 1000,
+                executionTime: Math.random() * 300 + 60,
+                contractInteractions: Math.floor(Math.random() * 2),
+                senderScore: Math.random() * 40 + 60,
+                gasPrice: Math.random() * 100 + 30
+            }
+        ];
+        
+        return threatTypes[Math.floor(Math.random() * threatTypes.length)];
+    }
+}
+
+// Initialize Advanced Backend Integration
+const advancedAPI = new ZeroTrustAdvancedAPI();
+
+// Start integration when page loads
+document.addEventListener('DOMContentLoaded', async () => {
+    // Try to connect to backend
+    const connected = await advancedAPI.checkConnection();
+    
+    if (connected) {
+        // Fetch real metrics every 8 seconds
+        setInterval(() => {
+            advancedAPI.fetchRealMetrics();
+        }, 8000);
+        
+        // Simulate advanced threat analysis every 12 seconds
+        setInterval(() => {
+            const threat = advancedAPI.generateRealisticThreat();
+            advancedAPI.analyzeAdvancedThreat(threat);
+        }, 12000);
+        
+        advancedAPI.logToTerminal('🚀 Advanced Multi-AI System Ready');
+        advancedAPI.logToTerminal('🔐 4 AI Systems: ZK + Agent + Guardian + Crypto');
+    }
+});
+
+console.log('🔗 ZeroTrust Advanced Backend Integration Loaded');
+console.log('🎯 Backend API: http://localhost:3004');
+</script>
+
+<!-- Update existing CSS for better alerts -->
+<style>
+.alert {
+    animation: slideIn 0.3s ease-out;
+    border-left: 4px solid #ff4444;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+</style>
