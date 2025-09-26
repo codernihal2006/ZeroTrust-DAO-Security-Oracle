@@ -1,0 +1,11 @@
+{
+  "name": "zerotrust-dega-core",
+  "version": "1.0.0", 
+  "main": "core-tech-backend.js",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "axios": "^1.5.0"
+  },
+  "keywords": ["dega", "hackathon", "midnight.js", "elizaos", "dao", "ai"]
+}
