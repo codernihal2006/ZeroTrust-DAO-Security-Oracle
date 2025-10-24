@@ -1,6 +1,6 @@
 # 🛡️ ZeroTrust DAO Security Oracle
 
-**🏆 DEGA Hackathon 2025 Winner | Advanced Multi-AI Security Platform**
+**🏆 DEGA Hackathon 2025  | Advanced Multi-AI Security Platform**
 
 [Live Demo](https://zero-trust-dao-security-oracle.vercel.app) | [GitHub Repository](https://github.com/codernihal/ZeroTrust-DAO-Security-Oracle)
 
